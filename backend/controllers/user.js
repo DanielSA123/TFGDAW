@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../services/jwt');
-const user = require('../models/user');
 const fs = require('fs');
 const path = require('path');
 
@@ -19,7 +18,7 @@ function saveUser(req, res) {
     user.name = params.name;
     user.surname = params.surname;
     user.email = params.email;
-    user.role = "ROLE_ADMIN";
+    user.role = "ROLE_USER";
     user.image = "null";
 
     if (params.password) {
@@ -30,21 +29,21 @@ function saveUser(req, res) {
                 //guardar el usuario si estan todos los datos
                 user.save((err, userStored) => {
                     if (err) {
-                        res.status(500).send({ message: 'error al guardar el usuario' });
+                        res.status(500).send({ message: 'Error al guardar el usuario' });
                     } else {
                         if (!userStored) {
-                            res.status(404).send({ message: 'no se ha registrado el usuario' });
+                            res.status(404).send({ message: 'No se ha registrado el usuario' });
                         } else {
                             res.status(200).send({ user: userStored });
                         }
                     }
                 })
             } else {
-                res.status(200).send({ message: 'introduce todos los campos' });
+                res.status(200).send({ message: 'Introduce todos los campos' });
             }
         })
     } else {
-        res.status(200).send({ message: 'introduce la contraseña' });
+        res.status(200).send({ message: 'Introduce la contraseña' });
     }
 }
 
@@ -127,7 +126,7 @@ function uploadImage(req, res) {
         }
 
     } else {
-        res.status(200).send({ message: 'no has subido ninguna imagen' })
+        res.status(200).send({ message: 'No has subido ninguna imagen' })
 
     }
 }
