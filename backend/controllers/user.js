@@ -108,7 +108,6 @@ function uploadImage(req, res) {
         var ext_split = file_name.split('.');
         var file_ext = ext_split[1];
 
-
         if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif') {
             User.findByIdAndUpdate(userId, { image: file_name }, (err, userUpdated) => {
                 if (err) {
@@ -117,7 +116,10 @@ function uploadImage(req, res) {
                     if (!userUpdated) {
                         res.status(404).send({ message: "No se ha podido actualizar el usuario" })
                     } else {
-                        res.status(200).send({ user: userUpdated })
+                        res.status(200).send({
+                            user: userUpdated,
+                            image: file_name
+                        })
                     }
                 }
             });

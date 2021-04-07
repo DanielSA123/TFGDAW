@@ -133,7 +133,7 @@ function uploadImage(req, res) {
                     res.status(500).send({ message: "Error al actualizar el artista" })
                 } else {
                     if (!artistUpdated) {
-                        res.status(404).send({ message: "No se ha podido actualizar el usuario" })
+                        res.status(404).send({ message: "No se ha podido actualizar el artista" })
                     } else {
                         res.status(200).send({ artist: artistUpdated })
                     }
