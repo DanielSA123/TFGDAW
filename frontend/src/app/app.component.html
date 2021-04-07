@@ -1,3 +1,79 @@
-<h1>
-  {{title}}
-</h1>
+<div class="nav col-lg-1" *ngIf="identity">
+    <h1>
+        {{title}}
+    </h1>
+</div>
+<div class="clearfix" *ngIf="identity"></div>
+<div class="central col-lg-11" *ngIf="identity">
+    <p>Estas logueado</p>
+    <span class="row">{{identity.name}}</span>
+    <span class="row">{{identity.surname}}</span>
+    <span class="btn btn-danger" (click)="logout()">Cerrar sesion</span>
+</div>
+
+<div class="row col-lg-12 " *ngIf="!identity">
+    <div class="col-lg-6 ">
+        <h1>Identificación</h1>
+        <div *ngIf="errorMessage">
+            <div class="alert alert-info" role="alert">
+                <strong>Error </strong>{{errorMessage}}
+            </div>
+        </div>
+        <form class="col-md-7" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="loginInputEmail">Email</label>
+                <input type="email" class="form-control" id="loginInputEmail" required #email="ngModel" name="email" [(ngModel)]="user.email">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <span>El email es obligatorio</span>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="loginInputPassword">Contraseña</label>
+                <input type="password" class="form-control" id="loginInputPassword" required #password="ngModel" name="password" [(ngModel)]="user.password">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+    </div>
+    <div class="col-lg-6 ">
+        <h1>Registro</h1>
+        <div *ngIf="registerMessage">
+            <div class="alert alert-info" role="alert">
+                <strong>{{registerMessage}}</strong>
+            </div>
+        </div>
+        <form class="col-md-7" #registerForm="ngForm" (ngSubmit)="onRegister()" autocomplete="off">
+            <div class="form-group">
+                <label for="registerInputNombre">Nombre</label>
+                <input type="text" class="form-control" id="registerInputNombre" required #name="ngModel" name="name" [(ngModel)]="userReg.name">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                    <span>El nombre es obligatorio</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registerInputApellidos">Apellidos</label>
+                <input type="Apellidos" class="form-control" id="registerInputApellidos" required #surname="ngModel" name="surname" [(ngModel)]="userReg.surname">
+                <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                    <span>Los apellidos son obligatorios</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registerInputEmail">Email</label>
+                <input type="email" class="form-control" id="registerInputEmail" required #email_reg="ngModel" name="email_reg" [(ngModel)]="userReg.email">
+                <div *ngIf="email_reg.invalid && (email_reg.dirty || email_reg.touched)">
+                    <span>El email es obligatorio</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registerInputPassword">Contraseña</label>
+                <input type="password" class="form-control" id="registerInputPassword" required #password="ngModel" name="password" [(ngModel)]="userReg.password">
+                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                    <span>La contraseña es obligatoria</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+    </div>
+</div>

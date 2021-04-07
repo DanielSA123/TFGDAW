@@ -116,7 +116,7 @@ function uploadImage(req, res) {
     if (req.files) {
         var file_path = req.files.image.path;
         var file_split = file_path.split('\\');
-        var file_name = file_split[3];
+        var file_name = file_split[2];
 
         var ext_split = file_name.split('.');
         var file_ext = ext_split[1];
@@ -146,7 +146,7 @@ function uploadImage(req, res) {
 
 function getImageFile(req, res) {
     var imageFile = req.params.imageFile;
-    var path_file = './backend/uploads/albums/' + imageFile;
+    var path_file = './uploads/albums/' + imageFile;
 
     fs.exists(path_file, function(exists) {
         if (exists) {

@@ -13,8 +13,6 @@ function saveUser(req, res) {
 
     var params = req.body;
 
-    console.log(params);
-
     user.name = params.name;
     user.surname = params.surname;
     user.email = params.email;
@@ -62,7 +60,7 @@ function loginUser(req, res) {
                 bcrypt.compare(password, user.password, (err, check) => {
                     if (check) {
                         //devolver los datos del usuario logueado
-                        if (params.getHash) {
+                        if (params.gethash) {
                             // devolver token del usuario
                             console.log(user);
                             res.status(200).send({ token: jwt.createToken(user) });
@@ -70,7 +68,7 @@ function loginUser(req, res) {
                             res.status(200).send({ user })
                         }
                     } else {
-                        res.status(200).send({ message: "El usuario no ha podido loguearse" })
+                        res.status(404).send({ message: "El usuario no ha podido loguearse" })
                     }
                 })
             }
@@ -103,7 +101,7 @@ function uploadImage(req, res) {
     if (req.files) {
         var file_path = req.files.image.path;
         var file_split = file_path.split('\\');
-        var file_name = file_split[3];
+        var file_name = file_split[2];
 
         var ext_split = file_name.split('.');
         var file_ext = ext_split[1];
@@ -135,7 +133,7 @@ function uploadImage(req, res) {
 
 function getImageFile(req, res) {
     var imageFile = req.params.imageFile;
-    var path_file = './backend/uploads/users/' + imageFile;
+    var path_file = './uploads/users/' + imageFile;
 
     fs.exists(path_file, function(exists) {
         if (exists) {
