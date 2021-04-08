@@ -1,3 +1,58 @@
+html,
 body {
-    background: #ddd;
+    margin: 0px;
+    height: 100%;
+    background-color: #333;
+}
+
+.tituloApp {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    display: block;
+}
+
+#sidebar {
+    text-align: center;
+    background-color: black;
+    color: white;
+    height: 100vh;
+}
+
+#sidebar a {
+    color: #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#sidebar a:hover {
+    color: rgb(241, 230, 122);
+}
+
+#sidebar i {
+    font-size: 25px;
+    display: block;
+    width: 100%;
+}
+
+#user_logged {
+    background-color: black;
+    position: absolute;
+    bottom: 0px;
+    border-top: 1px solid #444;
+    width: 90%;
+    text-align: center;
+}
+
+#user_image {
+    background-color: #eee;
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    margin-top: 15px;
+    overflow: hidden;
 }

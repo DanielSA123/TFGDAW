@@ -10,7 +10,7 @@ router.get('/', md_auth.ensureAuth, UserController.pruebas);
 router.post('/register', UserController.saveUser);
 router.post('/login', UserController.loginUser);
 router.post('/upload-image/:id', [md_auth.ensureAuth, md_upload], UserController.uploadImage);
-router.put('/:id', md_auth.ensureAuth, UserController.updateUser);
+router.put('/user/:id', md_auth.ensureAuth, UserController.updateUser);
 router.get('/get-image/:imageFile', UserController.getImageFile);
 
 module.exports = router;

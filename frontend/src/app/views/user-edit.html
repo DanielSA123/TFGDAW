@@ -1,0 +1,41 @@
+<div class="container" *ngIf="identity">
+    <h1>{{titulo}}</h1>
+    <div *ngIf="updateMessage">
+        <div class="alert alert-info" role="alert">
+            <strong>{{updateMessage}}</strong>
+        </div>
+    </div>
+    <!-- Formulario -->
+    <form #userUpdateForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="form-group">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" required #name="ngModel" name="name" [(ngModel)]="user.name">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <span>El nombre es obligatorio</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputApellidos">Apellidos</label>
+            <input type="Apellidos" class="form-control" id="inputApellidos" required #surname="ngModel" name="surname" [(ngModel)]="user.surname">
+            <div *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                <span>Los apellidos son obligatorios</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" required #email_reg="ngModel" name="email_reg" [(ngModel)]="user.email">
+            <div *ngIf="email_reg.invalid && (email_reg.dirty || email_reg.touched)">
+                <span>El email es obligatorio</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputImagen">Avatar</label>
+            <div class="image_for_edit" *ngIf="user.image && user.image != 'null'">
+                <img src="{{url}}users/get-image/{{user.image}}" style="width: 250px;">
+            </div>
+            <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+</div>

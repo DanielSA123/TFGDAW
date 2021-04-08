@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { UserService } from './services/user.service';
+import { GLOBAL } from './services/GLOBAL';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   public token;
   public errorMessage;
   public registerMessage;
+  public url;
 
 
   constructor(
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit {
   ) {
     this.user = new User('', '', '', '', '', 'ROLE_USER', '')
     this.userReg = new User('', '', '', '', '', 'ROLE_USER', '')
+    this.url = GLOBAL.url
   }
 
   ngOnInit() {
