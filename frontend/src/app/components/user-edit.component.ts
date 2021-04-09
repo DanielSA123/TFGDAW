@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { GLOBAL } from '../services/GLOBAL';
+import { UploadService } from 'app/services/upload.service';
 
 @Component({
     selector: 'user-edit',
     templateUrl: '../views/user-edit.html',
-    providers: [UserService],
+    providers: [UserService, UploadService],
 })
 
 export class UserEditComponent implements OnInit {
@@ -19,7 +20,8 @@ export class UserEditComponent implements OnInit {
     public url;
 
     constructor(
-        private _userService: UserService
+        private _userService: UserService,
+        private _uploadService: UploadService
     ) {
 
         this.titulo = 'Actualizar mis datos';
@@ -47,7 +49,7 @@ export class UserEditComponent implements OnInit {
                     this.updateMessage = 'El usuario se ha actualizado correctamente';
                     document.getElementById('identity_name').innerHTML = this.user.name;
                     if (this.filesToUpload) {
-                        this.makeFileRequest(this.url + 'users/upload-image/' + this.user._id, [], this.filesToUpload)
+                        this._uploadService.makeFileRequest(this.url + 'users/upload-image/' + this.user._id, [], this.filesToUpload, this.token, 'image')
                             .then((result: any) => {
                                 this.user.image = result.image;
                                 localStorage.setItem('identity', JSON.stringify(this.user));
@@ -73,28 +75,5 @@ export class UserEditComponent implements OnInit {
     public filesToUpload: Array<File>;
     public fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
-    }
-
-    public makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
-        let token = this.token;
-        return new Promise((resolve, reject) => {
-            var formData: any = new FormData();
-            var xhr = new XMLHttpRequest();
-            for (let i = 0; i < files.length; i++) {
-                formData.append('image', files[i], files[i].name);
-            }
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        resolve(JSON.parse(xhr.response));
-                    } else {
-                        reject(xhr.response);
-                    }
-                }
-            }
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader('Authorization', token);
-            xhr.send(formData);
-        });
     }
 }

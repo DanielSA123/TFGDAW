@@ -1,25 +1,26 @@
 <div class="row container-fluid">
-    <div class="col-lg-3" *ngIf="identity" id="sidebar">
+    <div class="col-lg-1" *ngIf="identity" id="sidebar">
         <h1 class="tituloApp">
             <a routerLink="/">
                 <i class="fas fa-music"></i> {{title}}
             </a>
         </h1>
         <nav id="navigation" class="nav flex-column nav-pills">
-            <a href="#" class="nav-link"><i class="fas fa-search"></i> Buscar</a>
-            <a href="#" class="nav-link"><i class="fas fa-star"></i> Artistas</a>
-            <a href="#" class="nav-link"><i class="fas fa-book"></i> Albums</a>
+            <a class="nav-link" href="#" [routerLinkActive]="['actived']"><i class="fas fa-search"></i> Buscar</a>
+            <a class="nav-link" routerLink="/artistas/1" [routerLinkActive]="['actived']"><i class="fas fa-star"></i> Artistas</a>
+            <a class="nav-link" href="#" [routerLinkActive]="['actived']"><i class="fas fa-book"></i> Albums</a>
+            <a class="nav-link" href="#" [routerLinkActive]="['actived']"><i class="fas fa-list-ul"></i>Listas</a>
         </nav>
-        <nav id="user_logged">
+        <nav id="user_logged" class="nav flex-column nav-pills">
             <div class="identity_image">
                 <img id="user_image" src="{{url}}users/get-image/{{identity.image}}">
             </div>
             <span class="" id="identity_name">{{identity.name}}</span><br>
-            <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
-            <a routerLink="/mis-datos"><i class="fas fa-cog"></i> Mis datos</a>
+            <a (click)="logout()" class="nav-link"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+            <a routerLink="/mis-datos" [routerLinkActive]="['actived']" class="nav-link"><i class="fas fa-cog"></i> Mis datos</a>
         </nav>
     </div>
-    <div class="central col-lg-9" *ngIf="identity">
+    <div class="central col-lg-11" [hidden]="!identity">
         <router-outlet></router-outlet>
     </div>
 </div>
