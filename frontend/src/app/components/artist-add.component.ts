@@ -23,7 +23,6 @@ export class ArtistAddComponent implements OnInit {
     ngOnInit() {
         console.log('Artist-add component loaded');
 
-        //getListado
     }
 
     constructor(private _route: ActivatedRoute, private _router: Router,
@@ -36,7 +35,6 @@ export class ArtistAddComponent implements OnInit {
     }
 
     public onSubmit() {
-        console.log(this.artist);
         this._artistService.addArtist(this.token, this.artist).subscribe(
             response => {
 
@@ -44,7 +42,7 @@ export class ArtistAddComponent implements OnInit {
                     this.artistMessage = "No se ha creado el artista";
                 } else {
                     this.artist = response.json().artist;
-                    this._router.navigate(['/editar-artista'], response.json().artist._id);
+                    this._router.navigate(['/editar-artista/' + response.json().artist._id]);
                 }
             },
             error => {

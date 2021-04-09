@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
     <h1>{{titulo}}</h1>
     <div *ngIf="artistMessage">
         <div class="alert alert-info" role="alert">
@@ -33,6 +33,12 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success" [disabled]="formArtist.form.invalid">Añadir</button>
+        <button type="submit" class="btn btn-success" [disabled]="formArtist.form.invalid">{{titulo}}</button>
     </form>
+</div>
+
+
+<div class="container" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+    <h1>Error</h1>
+    <p>No tienes los permisos necesarios</p>
 </div>

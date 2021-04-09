@@ -1,0 +1,55 @@
+<div class="container">
+    <h1>{{titulo}}</h1>
+    <div *ngIf="songMessage">
+        <div class="alert alert-info" role="alert">
+            {{songMessage}}
+        </div>
+    </div>
+    <form #formSong="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="inputNumber">Numero de cancion</label>
+            <input type="text" class="form-control" id="inputNumber" required #number="ngModel" name="number" [(ngModel)]="song.number">
+            <div *ngIf="number.invalid && (number.dirty || number.touched)">
+                <span>El número es obligatorio</span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" required #name="ngModel" name="name" [(ngModel)]="song.name">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <span>El nombre es obligatorio</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDuracion">Duracion</label>
+            <input type="text" class="form-control" id="inputDuracion" required #duration="ngModel" name="duration" [(ngModel)]="song.duration">
+            <div *ngIf="duration.invalid && (duration.dirty || duration.touched)">
+                <span>La duracion es obligatoria</span>
+            </div>
+
+        </div>
+
+        <div *ngIf="is_edit">
+            <div class="form-group">
+                <label for="inputFile">Archivo de audio</label>
+                <div class="file_for_edit" *ngIf="song.file && song.file != 'null'">
+                    <audio controls>
+                        <source src="{{url}}songs/get-song/{{song.file}}" type="audio/mpeg">                        
+                    </audio>
+                </div><br>
+                <input type="file" placeholder="Subir audio" (change)="fileChangeEvent($event)" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="formSong.form.invalid">{{titulo}}</button>
+    </form>
+
+
+
+    <div class="container" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+        <h1>Error</h1>
+        <p>No tienes los permisos necesarios</p>
+    </div>
+</div>

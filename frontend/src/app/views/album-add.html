@@ -1,0 +1,54 @@
+<div class="container">
+    <h1>{{titulo}}</h1>
+    <div *ngIf="albumMessage">
+        <div class="alert alert-info" role="alert">
+            {{albumMessage}}
+        </div>
+    </div>
+    <form #formAlbum="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="inputTitle">Titulo</label>
+            <input type="text" class="form-control" id="inputTitle" required #title="ngModel" name="title" [(ngModel)]="album.title">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)">
+                <span>El titulo es obligatorio</span>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="inputDescripcion">Descripcion</label>
+            <textarea type="text" class="form-control" id="inputDescripcion" required #description="ngModel" name="description" [(ngModel)]="album.description">
+            </textarea>
+            <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                <span>La descripcion es obligatoria</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputYear">Año</label>
+            <input type="text" class="form-control" id="inputYear" required #year="ngModel" name="year" [(ngModel)]="album.year">
+            <div *ngIf="year.invalid && (year.dirty || year.touched)">
+                <span>El titulo es obligatorio</span>
+            </div>
+
+        </div>
+
+        <div *ngIf="is_edit">
+            <div class="form-group">
+                <label for="inputImagen">Imagen del album</label>
+                <div class="image_for_edit" *ngIf="album.image && album.image != 'null'">
+                    <img src="{{url}}albums/get-image/{{album.image}}" style="width: 250px;">
+                </div><br>
+                <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="formAlbum.form.invalid">{{titulo}}</button>
+    </form>
+
+
+
+    <div class="container" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+        <h1>Error</h1>
+        <p>No tienes los permisos necesarios</p>
+    </div>
+</div>

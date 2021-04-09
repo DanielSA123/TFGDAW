@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="album-image col-lg-2">
+        <span *ngIf="song.album && song.album.image != 'null'">
+        <img id="playing-song-image" src="{{url}}albums/get-image/{{song.album.image}}">
+    </span>
+        <span *ngIf="!song.album || song.album.image=='null'">
+        <img id="playing-song-image" src="assets/img/default.jpg">
+    </span>
+    </div>
+    <div class="audio-file col-lg-10">
+        <div class="row-cols-1">
+            <p>Reproduciendo</p>
+            <span id="playing-song-title">
+        <span *ngIf="song.name">
+            {{song.name}}
+        </span>
+            </span>
+            |
+            <span id="playing-song-artist">
+        <span *ngIf="song.album.artist">
+            {{song.album.artist.name}}
+        </span>
+            </span>
+            <audio controls id="reproductor" class="col-12">
+                <source id="mp3-source" src="{{url}}songs/get-song/{{song.file}}" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+</div>

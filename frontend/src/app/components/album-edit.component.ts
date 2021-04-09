@@ -1,103 +1,101 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { User } from '../models/user';
-import { Artist } from '../models/artist';
-import { UserService } from '../services/user.service';
-import { ArtistService } from '../services/artist.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL } from '../services/GLOBAL';
+
+import { UserService } from '../services/user.service';
+
+import { Album } from 'app/models/album';
+import { AlbumService } from 'app/services/album.service';
 import { UploadService } from 'app/services/upload.service';
 
 @Component({
-    selector: 'artist-edit',
-    templateUrl: '../views/artist-add.html',
-    providers: [UserService, ArtistService, UploadService],
+    selector: 'album-edit',
+    templateUrl: '../views/album-add.html',
+    providers: [UserService, AlbumService, UploadService],
 })
 
-export class ArtistEditComponent implements OnInit {
-    public artist: Artist;
+export class AlbumEditComponent implements OnInit {
     public titulo: string;
     public identity: any;
     public token: string;
     public url: string;
-    public artistMessage: string;
+    public albumMessage: string;
+    public album: Album;
     public is_edit;
+
 
     constructor(private _route: ActivatedRoute, private _router: Router,
         private _userService: UserService,
-        private _artistService: ArtistService,
+        private _albumService: AlbumService,
         private _uploadService: UploadService) {
-        this.titulo = 'Añadir artistas';
+        this.titulo = 'Editar album';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.artist = new Artist('', '', '');
-        this.is_edit = true;
+        this.album = new Album('', '', 2000, '', '');
         this.url = GLOBAL.url;
+        this.is_edit = true;
     }
+
 
     ngOnInit() {
-        console.log('Artist-add component loaded');
-
-
-        this.getArtist()
+        console.log('Album-edit component loaded');
+        this.getAlbum();
     }
 
-    getArtist() {
+    public getAlbum() {
         this._route.params.forEach(param => {
             let id = param['id'];
-            this._artistService.getArtist(this.token, id).subscribe(
+            this._albumService.getAlbum(this.token, id).subscribe(
                 response => {
                     let res = response.json();
-                    if (!res.artist) {
+                    if (!res.album) {
                         this._router.navigate(['/']);
                     } else {
-                        this.artist = res.artist;
+                        this.album = res.album;
                     }
                 },
                 error => {
-                    var artistMessage = <any>error;
-                    if (artistMessage != null) {
+                    var albumMessage = <any>error;
+                    if (albumMessage != null) {
                         var body = JSON.parse(error._body)
                     }
                 }
             );
         });
-
-
     }
-
 
 
     public onSubmit() {
         this._route.params.forEach((param) => {
             let id = param['id'];
-            this._artistService.editArtist(this.token, param['id'], this.artist).subscribe(
+            this._albumService.editAlbum(this.token, param['id'], this.album).subscribe(
                 response => {
                     let res = response.json();
-                    if (!response.json().artist) {
-                        this.artistMessage = "No se ha editado el artista";
+                    if (!response.json().album) {
+                        this.albumMessage = "No se ha editado el album";
                     } else {
 
                         if (this.filesToUpload) {
-                            this._uploadService.makeFileRequest(this.url + 'artists/upload-image/' + id, [], this.filesToUpload, this.token, 'image')
+                            this._uploadService.makeFileRequest(this.url + 'albums/upload-image/' + id, [], this.filesToUpload, this.token, 'image')
                                 .then((result: any) => {
-                                    this._router.navigate(['artistas/1']);
+                                    this._router.navigate(['artista/' + res.album.artist]);
                                 }).catch((res) => { });
                         }
-
-                        this._router.navigate(['artistas/1']);
+                        this.albumMessage = "Se ha editado el album correctamente";
+                        this._router.navigate(['artista/' + res.album.artist]);
                     }
                 },
                 error => {
-                    var artistMessage = <any>error;
-                    if (artistMessage != null) {
+                    var albumMessage = <any>error;
+                    if (albumMessage != null) {
                         var body = JSON.parse(error._body)
-                        this.artistMessage = body.message;
+                        this.albumMessage = body.message;
                     }
                 }
             );
         });
-    }
 
+    }
 
 
     public filesToUpload: Array<File>;

@@ -62,7 +62,6 @@ function loginUser(req, res) {
                         //devolver los datos del usuario logueado
                         if (params.gethash) {
                             // devolver token del usuario
-                            console.log(user);
                             res.status(200).send({ token: jwt.createToken(user) });
                         } else {
                             res.status(200).send({ user })

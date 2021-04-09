@@ -22,6 +22,8 @@
     </div>
     <div class="central col-lg-11" [hidden]="!identity">
         <router-outlet></router-outlet>
+        <div class="clearfix"></div>
+        <player id="player" class="fixed-bottom col-lg-11 offset-lg-1"></player>
     </div>
 </div>
 <div class="row col-lg-12 " *ngIf="!identity">
