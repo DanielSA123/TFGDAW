@@ -21,7 +21,7 @@ export class ArtistAddComponent implements OnInit {
     public artistMessage: string;
 
     ngOnInit() {
-        console.log('Artist-add component loaded');
+
 
     }
 

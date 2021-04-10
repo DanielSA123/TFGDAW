@@ -27,6 +27,15 @@ export class SongService {
         }
     }
 
+    public getSongsPag(token, page = null) {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });
+        let options = new RequestOptions({ headers: headers });
+        if (page != null) {
+            return this._http.get(this.url + 'songs/page=' + page, options);
+        } else {
+            return this._http.get(this.url + 'songs/', options);
+        }
+    }
 
     public getSong(token, id) {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });

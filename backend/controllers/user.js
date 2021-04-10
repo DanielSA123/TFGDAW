@@ -8,6 +8,12 @@ function pruebas(req, res) {
     res.status(200).send({ message: 'probando una accion del controlador de usuarios del api rest de node y mongo' })
 }
 
+/**
+ * Función para registrar un usuario
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function saveUser(req, res) {
     var user = new User();
 
@@ -45,6 +51,12 @@ function saveUser(req, res) {
     }
 }
 
+/**
+ * Función para loguear un usuario
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function loginUser(req, res) {
     var params = req.body;
     var email = params.email;
@@ -75,7 +87,13 @@ function loginUser(req, res) {
     })
 }
 
-
+/**
+ * Función para actualizar los datos de un usuario
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 function updateUser(req, res) {
     var userId = req.params.id;
     var update = req.body;
@@ -97,7 +115,12 @@ function updateUser(req, res) {
 
 }
 
-
+/**
+ * Función para subir una imagen a un usuario
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function uploadImage(req, res) {
     var userId = req.params.id;
     var filename = "No subido";
@@ -117,6 +140,11 @@ function uploadImage(req, res) {
                     if (!userUpdated) {
                         res.status(404).send({ message: "No se ha podido actualizar el usuario" })
                     } else {
+                        if (userUpdated.image && userUpdated.image != 'null') {
+                            fs.rm('./uploads/users/' + userUpdated.image, (err) => {
+                                console.log(err);
+                            });
+                        }
                         res.status(200).send({
                             user: userUpdated,
                             image: file_name
@@ -134,6 +162,12 @@ function uploadImage(req, res) {
     }
 }
 
+/**
+ * Funcion para obtener la imagen de un usuario
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getImageFile(req, res) {
     var imageFile = req.params.imageFile;
     var path_file = './uploads/users/' + imageFile;

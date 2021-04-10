@@ -33,7 +33,6 @@ export class ArtistListComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('Artist-list component loaded');
         this.getArtists();
     }
 

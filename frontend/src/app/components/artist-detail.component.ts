@@ -33,7 +33,7 @@ export class ArtistDetailComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('Artist-detail component loaded');
+
         this.getArtist()
     }
 

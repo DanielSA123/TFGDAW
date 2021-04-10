@@ -35,7 +35,6 @@ export class ArtistEditComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('Artist-add component loaded');
 
 
         this.getArtist()

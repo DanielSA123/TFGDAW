@@ -22,7 +22,6 @@ export class SongAddComponent implements OnInit {
     public song: Song;
 
     ngOnInit() {
-        console.log('Song-add component loaded');
     }
 
     constructor(private _route: ActivatedRoute, private _router: Router,

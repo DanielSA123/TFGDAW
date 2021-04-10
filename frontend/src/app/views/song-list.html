@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>{{titulo}}</h1>
+    <ul class="pagination justify-content-end">
+        <li class="page-item"><a class="page-link" [routerLink]="['/songs',prev_page]">Anterior</a></li>
+        <li class="page-item"><a class="page-link" [routerLink]="['/songs',next_page]">Siguiente</a></li>
+    </ul>
+    <div class="gallery-songs row" *ngIf="songs">
+        <p *ngIf="songMessage">{{songMessage}}</p>
+        <div *ngFor="let song of songs" class="col-lg-12 bg-dark text-light song-item">
+            <span *ngIf="song.file && song.file!='null'"><a class="btn btn-success" (click)="startPlayer(song)"><i class="fas fa-play"></i></a></span>
+            <span *ngIf="song.number && song.name && song.duration && song.album.artist"> {{song.number}}.{{song.name}} - {{song.album.artist.name}} {{song.duration}}</span>
+            <span class="song_buttons float-right" *ngIf="identity.role == 'ROLE_ADMIN'">
+                <a class="btn btn-warning btn-sm text-light" [routerLink]="['/editar-cancion',song._id]">Editar</a>
+                <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(song._id)">Eliminar</a>
+            </span>
+            <div class="seguro" *ngIf="confirmado == song._id">
+                <span>Eliminar cancion?</span>
+                <a class="btn btn-danger btn-sm" (click)="onDeleteSong(song._id)">Confirmar</a>
+                <a class="btn btn-success btn-sm" (click)="onDeleteCancel()">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>

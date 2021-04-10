@@ -27,7 +27,7 @@ export class AlbumAddComponent implements OnInit {
     public album: Album
 
     ngOnInit() {
-        console.log('Album-add component loaded');
+
     }
 
     constructor(private _route: ActivatedRoute, private _router: Router,

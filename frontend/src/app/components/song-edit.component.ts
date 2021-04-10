@@ -39,7 +39,6 @@ export class SongEditComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('Song-edit component loaded');
         this.getSong();
     }
 

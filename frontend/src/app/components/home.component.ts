@@ -12,9 +12,7 @@ export class HomeComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('Home component loaded');
 
-        //getListado
     }
 
     constructor(private _route: ActivatedRoute, private _router: Router) {

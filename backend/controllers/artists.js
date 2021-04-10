@@ -5,6 +5,12 @@ const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * Funcion para obtener una artista de la base de datos
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getArtist(req, res) {
     var artistId = req.params.id;
     Artist.findById(artistId, (err, artist) => {
@@ -20,6 +26,12 @@ function getArtist(req, res) {
     })
 }
 
+/**
+ * Funcion para obtener todos los artistas de la base de datos paginados
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getArtists(req, res) {
     var page = 1;
     if (req.params.page) {
@@ -43,6 +55,13 @@ function getArtists(req, res) {
     })
 }
 
+
+/**
+ * Funcion para guardar una artista en la base de datos
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function saveArtist(req, res) {
     var artist = new Artist();
     var params = req.body;
@@ -63,6 +82,12 @@ function saveArtist(req, res) {
     })
 }
 
+/**
+ * Funcion para actualizar un artista en la base de datos
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function updateArtist(req, res) {
     var artistId = req.params.id;
     var update = req.body;
@@ -80,6 +105,12 @@ function updateArtist(req, res) {
     });
 }
 
+/**
+ * Funcion para borrar un artista de la base de datos
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function deleteArtist(req, res) {
     var artistId = req.params.id;
     Artist.findByIdAndRemove(artistId, (err, artistRemoved) => {
@@ -103,6 +134,21 @@ function deleteArtist(req, res) {
                                     if (!songRemoved) {
                                         res.status(404).send({ messsage: 'No se ha eliminado la cancion' });
                                     } else {
+                                        if (artistRemoved.image && artistRemoved.image != 'null') {
+                                            fs.rm('./uploads/artists/' + artistRemoved.image, (err) => {
+                                                console.log(err);
+                                            });
+                                        }
+                                        if (albumRemoved.image && albumRemoved.image != 'null') {
+                                            fs.rm('./uploads/albums/' + albumRemoved.image, (err) => {
+                                                console.log(err);
+                                            });
+                                        }
+                                        if (songRemoved.file && songRemoved.file != 'null') {
+                                            fs.rm('./uploads/songs/' + songRemoved.file, (err) => {
+                                                console.log(err);
+                                            });
+                                        }
                                         res.status(200).send({ artist: artistRemoved });
                                     }
                                 }
@@ -115,6 +161,12 @@ function deleteArtist(req, res) {
     });
 }
 
+/**
+ * Funcion para subir una imagen  de un artista
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function uploadImage(req, res) {
     var artistId = req.params.id;
     var filename = "No subido";
@@ -135,6 +187,11 @@ function uploadImage(req, res) {
                     if (!artistUpdated) {
                         res.status(404).send({ message: "No se ha podido actualizar el artista" })
                     } else {
+                        if (artistUpdated.image && artistUpdated.image != 'null') {
+                            fs.rm('./uploads/artists/' + artistUpdated.image, (err) => {
+                                console.log(err);
+                            });
+                        }
                         res.status(200).send({ artist: artistUpdated })
                     }
                 }
@@ -149,6 +206,12 @@ function uploadImage(req, res) {
     }
 }
 
+/**
+ * Funcion para obtener la imagen de un artista
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getImageFile(req, res) {
     var imageFile = req.params.imageFile;
     var path_file = './uploads/artists/' + imageFile;

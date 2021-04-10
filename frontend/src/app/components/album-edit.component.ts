@@ -38,7 +38,7 @@ export class AlbumEditComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('Album-edit component loaded');
+
         this.getAlbum();
     }
 

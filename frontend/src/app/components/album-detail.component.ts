@@ -35,7 +35,7 @@ export class AlbumDetailComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('Album-detail component loaded');
+
         this.getAlbum()
     }
 
@@ -111,7 +111,7 @@ export class AlbumDetailComponent implements OnInit {
 
     public startPlayer(song) {
         let song_player = JSON.stringify(song);
-        console.log(song);
+
 
         let file_path = this.url + 'songs/get-song/' + song.file;
         let image_path = this.url + 'albums/get-image/' + song.album.image;

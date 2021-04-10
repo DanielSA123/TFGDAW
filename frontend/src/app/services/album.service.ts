@@ -27,6 +27,16 @@ export class AlbumService {
         }
     }
 
+    public getAlbumsPag(token, page = null) {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });
+        let options = new RequestOptions({ headers: headers });
+        if (page != null) {
+            return this._http.get(this.url + 'albums/page=' + page, options);
+        } else {
+            return this._http.get(this.url + 'albums/', options);
+        }
+    }
+
 
     public getAlbum(token, id) {
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });

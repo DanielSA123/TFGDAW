@@ -4,7 +4,14 @@ const Song = require('../models/song');
 const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
 const path = require('path');
+const album = require('../models/album');
 
+/**
+ * Envia el album con el id que se pasa en los paramertos del request de html
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getAlbum(req, res) {
     var albumId = req.params.id;
 
@@ -21,7 +28,12 @@ function getAlbum(req, res) {
     });
 
 }
-
+/**
+ * Guarda en la base de datos los datos del album que recibe el request de html
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function saveAlbum(req, res) {
     var album = new Album();
     var params = req.body;
@@ -45,28 +57,70 @@ function saveAlbum(req, res) {
     });
 }
 
+/**
+ * Envia los albums del artista que se pasa en los paramertos del request de html
+ * En caso de que no se le pase un artista devuelve todos los albums de la base de datos
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getAlbums(req, res) {
     var artistId = req.params.artist;
     if (!artistId) {
-        //mostrar todo
-        var find = Album.find({}).sort('title');
-    } else {
-        //mostrar los albums de un artista
-        var find = Album.find({ artist: artistId }).sort('year');
-    }
-    find.populate({ path: 'artist' }).exec((err, albums) => {
-        if (err) {
-            res.status(500).send({ message: "Error en la peticion" });
-        } else {
-            if (!albums) {
-                res.status(404).send({ message: "No hay albums" });
+        //mostrar todos los albums
+        var find = Album.find({}).sort('title').populate({ path: 'artist' }).exec((err, albums) => {
+            if (err) {
+                res.status(500).send({ message: "Error en la peticion" });
             } else {
-                res.status(200).send({ albums });
+                if (!albums) {
+                    res.status(404).send({ message: "No hay albums" });
+                } else {
+                    res.status(200).send({ albums });
+                }
             }
+        });;
+    } else {
+        if (artistId.includes('page=')) {
+            let dat = artistId.split('=')
+            let page = dat[1];
+            Album.find().sort('name').paginate(page, 8, (err, albums, total) => {
+                if (err) {
+                    res.status(500).send({ messsage: 'Error en la peticion' });
+                } else {
+                    if (!albums) {
+                        res.status(404).send({ messsage: 'No hay albums' });
+                    } else {
+                        return res.status(200).send({
+                            total_items: total,
+                            albums: albums
+                        });
+                    }
+                }
+            });
+        } else {
+            //mostrar los albums de un artista
+            var find = Album.find({ artist: artistId }).sort('year').populate({ path: 'artist' }).exec((err, albums) => {
+                if (err) {
+                    res.status(500).send({ message: "Error en la peticion" });
+                } else {
+                    if (!albums) {
+                        res.status(404).send({ message: "No hay albums" });
+                    } else {
+                        res.status(200).send({ albums });
+                    }
+                }
+            });
         }
-    });
+    }
 }
 
+
+/**
+ * Funcion para actualizar un album
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function updateAlbum(req, res) {
     var albumId = req.params.id;
     var update = req.body;
@@ -84,7 +138,12 @@ function updateAlbum(req, res) {
     })
 }
 
-
+/**
+ * Funcion para eliminar un album del la base de datos
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function deleteAlbum(req, res) {
     var albumId = req.params.id;
     Album.findByIdAndRemove(albumId, (err, albumRemoved) => {
@@ -101,6 +160,16 @@ function deleteAlbum(req, res) {
                         if (!songRemoved) {
                             res.status(404).send({ messsage: 'No se ha eliminado la cancion' });
                         } else {
+                            if (albumRemoved.image && albumRemoved.image != 'null') {
+                                fs.rm('./uploads/albums/' + albumRemoved.image, (err) => {
+                                    console.log(err);
+                                });
+                            }
+                            if (songRemoved.file && songRemoved.file != 'null') {
+                                fs.rm('./uploads/songs/' + songRemoved.file, (err) => {
+                                    console.log(err);
+                                });
+                            }
                             res.status(200).send({ album: albumRemoved });
                         }
                     }
@@ -110,6 +179,12 @@ function deleteAlbum(req, res) {
     });
 }
 
+/**
+ * Funcion para subir una imagen a un album
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function uploadImage(req, res) {
     var albumId = req.params.id;
     var filename = "No subido";
@@ -130,6 +205,11 @@ function uploadImage(req, res) {
                     if (!albumUpdated) {
                         res.status(404).send({ message: "No se ha podido actualizar el album" })
                     } else {
+                        if (albumUpdated.image && albumUpdated.image != 'null') {
+                            fs.rm('./uploads/albums/' + albumUpdated.image, (err) => {
+                                console.log(err);
+                            });
+                        }
                         res.status(200).send({ album: albumUpdated })
                     }
                 }
@@ -144,6 +224,13 @@ function uploadImage(req, res) {
     }
 }
 
+
+/**
+ * Funcion que devuelve la imagen de un album
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getImageFile(req, res) {
     var imageFile = req.params.imageFile;
     var path_file = './uploads/albums/' + imageFile;

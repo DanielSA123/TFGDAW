@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>{{titulo}}</h1>
+    <ul class="pagination justify-content-end">
+        <li class="page-item"><a class="page-link" [routerLink]="['/albums',prev_page]">Anterior</a></li>
+        <li class="page-item"><a class="page-link" [routerLink]="['/albums',next_page]">Siguiente</a></li>
+    </ul>
+    <div class="gallery-albums row" *ngIf="albums">
+        <p *ngIf="albumMessage">{{albumMessage}}</p>
+        <div *ngFor="let album of albums" class="col-lg-3 card album-card bg-dark text-light" style="width: 18rem;">
+            <img src="{{url}}albums/get-image/{{album.image}}" class="card-img-top" *ngIf="album.image != 'null'">
+            <div class="card-img-top" *ngIf="album.image == 'null'"></div>
+            <div class="card-body">
+                <h5 class="card-title">{{album.title}}</h5>
+                <p class="card-text">{{album.year}}</p>
+                <p class="card-text">{{album.description}}</p>
+                <a [routerLink]="['/album',album._id]" class="btn btn-primary">Ver Album</a><br><br>
+                <div class="artist_buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
+                    <a class="btn btn-warning btn-sm text-light" [routerLink]="['/editar-album',album._id]">Editar</a>
+                    <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(album._id)">Eliminar</a>
+                </div>
+            </div>
+
+            <div class="seguro" *ngIf="confirmado == album._id">
+                <a class="btn btn-danger btn-sm" (click)="onDeleteAlbum(album._id)">Confirmar</a>
+                <a class="btn btn-success btn-sm" (click)="onDeleteCancel()">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
