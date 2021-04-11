@@ -8,7 +8,7 @@
             <p>{{artist.description}}</p>
         </div>
         <div class="clearfix"></div>
-        <a [routerLink]="['/crear-album',artist._id]" *ngIf="identity.role == 'ROLE_ADMIN'" class="btn btn-primary"> Añadir album</a>
+        <a [routerLink]="['/crear-album',artist._id]" *ngIf="identity.role == 'ROLE_ADMIN' ||(identity.artistId && identity.artistId == artist._id)" class="btn btn-primary"> Añadir album</a>
         <div class="gallery-albums row" *ngIf="albums">
             <p *ngIf="artistMessage">{{artistMessage}}</p>
             <div *ngFor="let album of albums" class="col-lg-3 card album-card bg-dark text-light" style="width: 18rem;">
@@ -18,7 +18,7 @@
                     <h5 class="card-title">{{album.title}}</h5>
                     <p class="card-text">{{album.description}}</p>
                     <a [routerLink]="['/album',album._id]" class="btn btn-primary">Ver Album</a><br><br>
-                    <div class="artist_buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
+                    <div class="artist_buttons" *ngIf="identity.role == 'ROLE_ADMIN'||(identity.artistId && identity.artistId == artist._id)">
                         <a class="btn btn-warning btn-sm text-light" [routerLink]="['/editar-album',album._id]">Editar</a>
                         <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(album._id)">Eliminar</a>
                     </div>

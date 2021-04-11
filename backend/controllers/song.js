@@ -3,6 +3,7 @@ const Album = require('../models/album');
 const Song = require('../models/song');
 const mongoosePaginate = require('mongoose-pagination');
 const fs = require('fs');
+const mp3Dur = require('mp3-duration');
 const path = require('path');
 
 /**
@@ -178,29 +179,31 @@ function uploadFile(req, res) {
 
         var ext_split = file_name.split('.');
         var file_ext = ext_split[1];
-
-
-        if (file_ext == 'mp3') {
-            Song.findByIdAndUpdate(songId, { file: file_name }, (err, songUpdated) => {
-                if (err) {
-                    res.status(500).send({ message: "Error al actualizar la cancion" })
-                } else {
-                    if (!songUpdated) {
-                        res.status(404).send({ message: "No se ha podido actualizar la cancion" })
+        let file_duration = '0';
+        mp3Dur('./uploads/songs/' + file_name, function(err, duration) {
+            if (err) return console.log(err.message);
+            file_duration = Math.floor(duration / 60) + ':' + Math.floor(duration % 60);
+            if (file_ext == 'mp3') {
+                Song.findByIdAndUpdate(songId, { duration: file_duration, file: file_name }, (err, songUpdated) => {
+                    if (err) {
+                        res.status(500).send({ message: "Error al actualizar la cancion" })
                     } else {
-                        if (songUpdated.file && songUpdated.file != 'null') {
-                            fs.rm('./uploads/songs/' + songUpdated.file, (err) => {
-                                console.log(err);
-                            });
+                        if (!songUpdated) {
+                            res.status(404).send({ message: "No se ha podido actualizar la cancion" })
+                        } else {
+                            if (songUpdated.file && songUpdated.file != 'null') {
+                                fs.rm('./uploads/songs/' + songUpdated.file, (err) => {
+                                    console.log(err);
+                                });
+                            }
+                            res.status(200).send({ song: songUpdated })
                         }
-                        res.status(200).send({ song: songUpdated })
                     }
-                }
-            });
-        } else {
-            res.status(200).send({ message: 'Extension del archivo no valida' })
-        }
-
+                });
+            } else {
+                res.status(200).send({ message: 'Extension del archivo no valida' })
+            }
+        });
     } else {
         res.status(200).send({ message: 'No has subido ningun audio' })
 

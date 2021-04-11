@@ -7,15 +7,16 @@
             <h1>{{album.title}}</h1>
             <p>{{album.description}}</p>
             <p>{{album.year}}</p>
+            <a [routerLink]="['/artista',album.artist._id]">{{album.artist.name}}</a>
         </div>
         <div class="clearfix"></div>
-        <a [routerLink]="['/crear-cancion',album._id]" *ngIf="identity.role == 'ROLE_ADMIN'" class="btn btn-primary"> Añadir cancion</a>
+        <a [routerLink]="['/crear-cancion',album._id]" *ngIf="identity.role == 'ROLE_ADMIN' || identity.artistId == album.artist._id" class="btn btn-primary"> Añadir cancion</a>
         <div class="gallery-songs row" *ngIf="songs">
             <p *ngIf="albumMessage">{{albumMessage}}</p>
             <div *ngFor="let song of songs" class="col-lg-12 bg-dark text-light song-item">
                 <span *ngIf="song.file && song.file!='null'"><a class="btn btn-success" (click)="startPlayer(song)"><i class="fas fa-play"></i></a></span>
                 <span> {{song.number}}.{{song.name}} - {{song.album.artist.name}} {{song.duration}}</span>
-                <span class="song_buttons float-right" *ngIf="identity.role == 'ROLE_ADMIN'">
+                <span class="song_buttons float-right" *ngIf="identity.role == 'ROLE_ADMIN' || ( identity.artistId && identity.artistId == album.artist._id )">
                     <a class="btn btn-warning btn-sm text-light" [routerLink]="['/editar-cancion',song._id]">Editar</a>
                     <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(song._id)">Eliminar</a>
                 </span>

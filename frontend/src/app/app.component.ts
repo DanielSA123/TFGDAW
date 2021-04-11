@@ -25,8 +25,8 @@ export class AppComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.user = new User('', '', '', '', '', 'ROLE_USER', '')
-    this.userReg = new User('', '', '', '', '', 'ROLE_USER', '')
+    this.user = new User('', '', '', '', '', 'ROLE_USER', '', '')
+    this.userReg = new User('', '', '', '', '', 'ROLE_USER', '', '')
     this.url = GLOBAL.url
   }
 
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
               } else {
                 //crear sesion en local storage
                 localStorage.setItem('token', token);
-                this.user = new User('', '', '', '', '', 'ROLE_USER', '');
+                this.user = new User('', '', '', '', '', 'ROLE_USER', '', '');
 
               }
             },
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
           this.registerMessage = 'Error al registrarse';
         } else {
           this.registerMessage = "El usuario se ha registrado, identificate con " + this.userReg.email;
-          this.userReg = new User('', '', '', '', '', 'ROLE_USER', '');
+          this.userReg = new User('', '', '', '', '', 'ROLE_USER', '', '');
         }
       }
       , error => {

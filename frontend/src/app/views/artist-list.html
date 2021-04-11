@@ -16,7 +16,7 @@
                 <h5 class="card-title">{{artist.name}}</h5>
                 <p class="card-text">{{artist.description}}</p>
                 <a [routerLink]="['/artista',artist._id]" class="btn btn-primary">Ver Artista</a><br><br>
-                <div class="artist_buttons" *ngIf="identity.role == 'ROLE_ADMIN'">
+                <div class="artist_buttons" *ngIf="identity.role == 'ROLE_ADMIN' || identity.artistId == artist._id">
                     <a class="btn btn-warning btn-sm text-light" [routerLink]="['/editar-artista',artist._id]">Editar</a>
                     <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(artist._id)">Eliminar</a>
                 </div>

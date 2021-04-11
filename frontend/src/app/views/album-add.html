@@ -5,7 +5,8 @@
             {{albumMessage}}
         </div>
     </div>
-    <form #formAlbum="ngForm" (ngSubmit)="onSubmit()">
+
+    <form #formAlbum="ngForm" (ngSubmit)="onSubmit()" *ngIf="identity && identity.artistId == album.artist">
         <div class="form-group">
             <label for="inputTitle">Titulo</label>
             <input type="text" class="form-control" id="inputTitle" required #title="ngModel" name="title" [(ngModel)]="album.title">
@@ -47,7 +48,7 @@
 
 
 
-    <div class="container" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+    <div class="container" *ngIf="!(identity && identity.artistId == album.artist)">
         <h1>Error</h1>
         <p>No tienes los permisos necesarios</p>
     </div>

@@ -27,7 +27,11 @@ export class AlbumAddComponent implements OnInit {
     public album: Album
 
     ngOnInit() {
+        this._route.params.forEach(param => {
+            this.album.artist = param['artist'];
+            console.log(this.album);
 
+        })
     }
 
     constructor(private _route: ActivatedRoute, private _router: Router,
@@ -38,6 +42,7 @@ export class AlbumAddComponent implements OnInit {
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.album = new Album('', '', 2000, '', '');
+
     }
 
     public onSubmit() {

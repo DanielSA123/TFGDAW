@@ -20,9 +20,9 @@
         <span *ngIf="song.album.artist">
             {{song.album.artist.name}}
         </span>
-            </span>
+            </span><br><br>
             <audio controls id="reproductor" class="col-12">
-                <source id="mp3-source" src="{{url}}songs/get-song/{{song.file}}" type="audio/mpeg">
+                <source id="mp3-source" src="{{url}}songs/get-song/{{song.file}}" type="audio/mpeg" >
             </audio>
         </div>
     </div>

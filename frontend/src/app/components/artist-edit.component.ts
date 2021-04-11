@@ -79,10 +79,27 @@ export class ArtistEditComponent implements OnInit {
                         if (this.filesToUpload) {
                             this._uploadService.makeFileRequest(this.url + 'artists/upload-image/' + id, [], this.filesToUpload, this.token, 'image')
                                 .then((result: any) => {
-                                    this._router.navigate(['artistas/1']);
+
                                 }).catch((res) => { });
                         }
-
+                        this.identity.artistId = id;
+                        this._userService.updateUser(this.identity).subscribe(
+                            response => {
+                                let res = response.json();
+                                if (!res.user) {
+                                    this.artistMessage = "No se ha editado el usuario";
+                                } else {
+                                    localStorage.setItem('identity', JSON.stringify(this.identity));
+                                }
+                            },
+                            error => {
+                                var artistMessage = <any>error;
+                                if (artistMessage != null) {
+                                    var body = JSON.parse(error._body)
+                                    this.artistMessage = body.message;
+                                }
+                            }
+                        );
                         this._router.navigate(['artistas/1']);
                     }
                 },
