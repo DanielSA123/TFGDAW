@@ -18,6 +18,11 @@ import { SongAddComponent } from './components/song-add.component';
 import { SongEditComponent } from './components/song-edit.component';
 import { SongListComponent } from './components/song-list.component';
 
+import { PlaylistDetailComponent } from './components/playlist-detail.component';
+import { PlaylistAddComponent } from './components/playlist-add.component';
+import { PlaylistEditComponent } from './components/playlist-edi.component';
+import { PlaylistListComponent } from './components/playlist-list.component';
+
 
 
 const appRoutes: Routes = [
@@ -33,6 +38,10 @@ const appRoutes: Routes = [
     { path: 'crear-cancion/:album', component: SongAddComponent },
     { path: 'editar-cancion/:id', component: SongEditComponent },
     { path: 'songs/:page', component: SongListComponent },
+    { path: 'lista/:id', component: PlaylistDetailComponent },
+    { path: 'crear-lista', component: PlaylistAddComponent },
+    { path: 'editar-lista/:id', component: PlaylistEditComponent },
+    { path: 'listas', component: PlaylistListComponent },
     { path: 'mis-datos', component: UserEditComponent },
     { path: '**', component: HomeComponent },
 ];

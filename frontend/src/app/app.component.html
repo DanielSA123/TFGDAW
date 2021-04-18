@@ -1,5 +1,5 @@
 <div class="row container-fluid">
-    <div class="col-lg-1" *ngIf="identity" id="sidebar">
+    <div class="col-lg-2" *ngIf="identity" id="sidebar">
         <h1 class="tituloApp">
             <a routerLink="/">
                 <i class="fas fa-music"></i> {{title}}
@@ -9,7 +9,7 @@
             <a class="nav-link" routerLink="/songs/1" [routerLinkActive]="['actived']"><i class="fas fa-search"></i> Buscar</a>
             <a class="nav-link" routerLink="/artistas/1" [routerLinkActive]="['actived']"><i class="fas fa-star"></i> Artistas</a>
             <a class="nav-link" routerLink="/albums/1" [routerLinkActive]="['actived']"><i class="fas fa-book"></i> Albums</a>
-            <a class="nav-link" href="#" [routerLinkActive]="['actived']"><i class="fas fa-list-ul"></i>Listas</a>
+            <a class="nav-link" routerLink="/listas" [routerLinkActive]="['actived']"><i class="fas fa-list-ul"></i>Listas</a>
         </nav>
         <nav id="user_logged" class="nav flex-column nav-pills">
             <div class="identity_image">
@@ -20,10 +20,10 @@
             <a routerLink="/mis-datos" [routerLinkActive]="['actived']" class="nav-link"><i class="fas fa-cog"></i> Mis datos</a>
         </nav>
     </div>
-    <div class="central col-lg-11" [hidden]="!identity">
+    <div class="central col-lg-10" [hidden]="!identity">
         <router-outlet></router-outlet>
         <div class="clearfix"></div>
-        <player id="player" class="fixed-bottom col-lg-11 offset-lg-1"></player>
+        <player id="player" class="fixed-bottom col-lg-10 offset-lg-2"></player>
     </div>
 </div>
 <div class="row col-lg-12 " *ngIf="!identity">

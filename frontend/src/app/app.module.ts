@@ -24,6 +24,10 @@ import { SongAddComponent } from './components/song-add.component';
 import { SongEditComponent } from './components/song-edit.component';
 import { AlbumListComponent } from './components/album-list.component';
 import { SongListComponent } from './components/song-list.component';
+import { PlaylistAddComponent } from './components/playlist-add.component';
+import { PlaylistEditComponent } from './components/playlist-edi.component';
+import { PlaylistDetailComponent } from './components/playlist-detail.component';
+import { PlaylistListComponent } from './components/playlist-list.component';
 
 
 @NgModule({
@@ -43,6 +47,10 @@ import { SongListComponent } from './components/song-list.component';
     SongEditComponent,
     SongListComponent,
     PlayerComponent,
+    PlaylistAddComponent,
+    PlaylistEditComponent,
+    PlaylistDetailComponent,
+    PlaylistListComponent
   ],
   imports: [
     BrowserModule,

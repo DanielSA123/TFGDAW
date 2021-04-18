@@ -86,7 +86,8 @@ input {
 }
 
 .artist-head,
-.album-head {
+.album-head,
+.playlist-head {
     width: 200px;
     height: 200px;
     overflow: hidden;
@@ -95,15 +96,18 @@ input {
 }
 
 .artist-head img,
-.album-head img {
+.album-head img,
+.playlist-head img {
     width: 200px;
 }
 
-.album-card {
+.album-card,
+.playlist-card {
     margin-top: 1rem;
 }
 
-.gallery-songs {
+.gallery-songs,
+.gallery-playlists {
     padding: 1rem;
 }
 

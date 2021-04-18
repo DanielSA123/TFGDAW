@@ -1,0 +1,26 @@
+<div class="container" *ngIf="identity">
+    <div *ngIf="lista" class="playlist-box">
+        <div class="playlist-head">
+            <img src="{{url}}playlists/get-image/{{lista.image}}" *ngIf="lista.image != 'null'">
+        </div>
+        <div class="playlist-data">
+            <h1>{{album.name}}</h1>
+        </div>
+        <div class="clearfix"></div>
+        <div class="gallery-songs row" *ngIf="songs">
+            <p *ngIf="playlistMessage">{{playlistMessage}}</p>
+            <div *ngFor="let song of songs" class="col-lg-12 bg-dark text-light song-item">
+                <span *ngIf="song.file && song.file!='null'"><a class="btn btn-success" (click)="startPlayer(song)"><i class="fas fa-play"></i></a></span>
+                <span> {{song.number}}.{{song.name}} - {{song.album.artist.name}} {{song.duration}}</span>
+                <span class="song_buttons float-right" *ngIf="identity">
+                    <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(song._id)">Eliminar</a>
+                </span>
+                <div class="seguro" *ngIf="confirmado == song._id">
+                    <span>Eliminar cancion?</span>
+                    <a class="btn btn-danger btn-sm" (click)="onDeleteSong(song._id)">Confirmar</a>
+                    <a class="btn btn-success btn-sm" (click)="onDeleteCancel()">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

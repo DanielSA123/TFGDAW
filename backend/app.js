@@ -20,6 +20,7 @@ app.use('/api/users', require("./routes/users.routes"));
 app.use('/api/artists', require("./routes/artists.routes"));
 app.use('/api/albums', require("./routes/albums.routes"));
 app.use('/api/songs', require("./routes/songs.routes"));
+app.use('/api/playlists', require("./routes/playlist.routes"));
 
 
 module.exports = app;

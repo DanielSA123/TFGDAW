@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>{{titulo}}</h1>
+    <a class="btn btn-primary btn-sm" [routerLink]="['/crear-lista']">Crear Lista</a>
+    <div class="gallery-playlists row" *ngIf="listas">
+        <p *ngIf="playlistMessage">{{playlistMessage}}</p>
+        <div *ngFor="let lista of listas" class="col-lg-3 card playlist-card bg-dark text-light" style="width: 18rem;">
+            <img src="{{url}}playlists/get-image/{{lista.image}}" class="card-img-top" *ngIf="lista.image != 'null'">
+            <div class="card-img-top" *ngIf="lista.image == 'null'"></div>
+            <div class="card-body">
+                <h5 class="card-title">{{lista.name}}</h5>
+                <a [routerLink]="['/lista',lista._id]" class="btn btn-primary">Ver Lista</a><br><br>
+                <div class="playlist_buttons" *ngIf="identity">
+                    <a class="btn btn-warning btn-sm text-light" [routerLink]="['/editar-lista',lista._id]">Editar</a>
+                    <a class="btn btn-danger btn-sm" (click)="onDeleteConfirm(lista._id)">Eliminar</a>
+                </div>
+            </div>
+
+            <div class="seguro" *ngIf="confirmado == lista._id">
+                <a class="btn btn-danger btn-sm" (click)="onDeletePlaylist(lista._id)">Confirmar</a>
+                <a class="btn btn-success btn-sm" (click)="onDeleteCancel()">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>

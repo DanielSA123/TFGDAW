@@ -4,7 +4,7 @@ const SongController = require('../controllers/song');
 const md_auth = require('../middlewares/authenticated');
 const multipart = require('connect-multiparty');
 
-var md_upload = multipart({ uploadDir: 'uploads/songs' });
+var md_upload = multipart({ uploadDir: 'uploads/songs' }); //ruta donde se guardan las canciones
 
 router.get('/:album?', md_auth.ensureAuth, SongController.getSongs); //ver todas/ canciones de un album
 

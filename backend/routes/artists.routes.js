@@ -4,7 +4,7 @@ const ArtistController = require('../controllers/artists');
 const md_auth = require('../middlewares/authenticated');
 const multipart = require('connect-multiparty');
 
-var md_upload = multipart({ uploadDir: 'uploads/artists' });
+var md_upload = multipart({ uploadDir: 'uploads/artists' }); //ruta donde se guardan las imagenes
 
 router.get('/:page?', md_auth.ensureAuth, ArtistController.getArtists); //ver todos los artistas
 

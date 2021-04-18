@@ -1,0 +1,39 @@
+<div class="container">
+    <h1>{{titulo}}</h1>
+    <div *ngIf="playlistMessage">
+        <div class="alert alert-info" role="alert">
+            {{playlistMessage}}
+        </div>
+    </div>
+
+    <form #formPlaylist="ngForm" (ngSubmit)="onSubmit()" *ngIf="identity">
+        <div class="form-group">
+            <label for="inputName">Nombre</label>
+            <input type="text" class="form-control" id="inputName" required #name="ngModel" name="name" [(ngModel)]="lista.name">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <span>El nombre es obligatorio</span>
+            </div>
+        </div>
+
+
+        <div *ngIf="is_edit">
+            <div class="form-group">
+                <label for="inputImagen">Imagen de la lista</label>
+                <div class="image_for_edit" *ngIf="lista.image && lista.image != 'null'">
+                    <img src="{{url}}playlists/get-image/{{lista.image}}" style="width: 250px;">
+                </div><br>
+                <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="formPlaylist.form.invalid">{{titulo}}</button>
+    </form>
+
+
+
+    <div class="container" *ngIf="!identity">
+        <h1>Error</h1>
+        <p>No tienes los permisos necesarios</p>
+    </div>
+
+</div>

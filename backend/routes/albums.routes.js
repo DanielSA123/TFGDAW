@@ -3,7 +3,7 @@ const router = express.Router();
 const AlbumController = require('../controllers/album');
 const md_auth = require('../middlewares/authenticated');
 const multipart = require('connect-multiparty');
-var md_upload = multipart({ uploadDir: 'uploads/albums' });
+var md_upload = multipart({ uploadDir: 'uploads/albums' }); //ruta donde se guardan las imagenes
 
 
 router.get('/:artist?', md_auth.ensureAuth, AlbumController.getAlbums); //ver todos los albums/ ver los albums de un artista
