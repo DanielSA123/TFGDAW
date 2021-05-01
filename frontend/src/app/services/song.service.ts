@@ -57,4 +57,10 @@ export class SongService {
         let options = new RequestOptions({ headers: headers });
         return this._http.delete(this.url + 'songs/song/' + id, options);
     }
+
+    public searchSong(token, name) {
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this.url + 'songs/search/' + name, options);
+    }
 }

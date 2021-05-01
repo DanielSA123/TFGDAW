@@ -16,11 +16,12 @@ import { Song } from 'app/models/song';
 
 export class PlaylistDetailComponent implements OnInit {
     public lista: Playlist;
-    public songs: Song[];
+    public songs: any[];
     public identity: any;
     public token: string;
     public url: string;
     public playlistMessage: string;
+    public song: any;
 
     constructor(private _route: ActivatedRoute, private _router: Router,
         private _userService: UserService,
@@ -45,8 +46,8 @@ export class PlaylistDetailComponent implements OnInit {
                         this._router.navigate(['/']);
                     } else {
                         this.lista = res.playlist;
-                        //obtener albums
-                        this.songs = res.playlists.songs;
+                        //obtener canciones
+                        this.songs = res.playlist.songs;
                     }
                 },
                 error => {
@@ -85,6 +86,8 @@ export class PlaylistDetailComponent implements OnInit {
                     var playlistMessage = <any>error;
                     if (playlistMessage != null) {
                         var body = JSON.parse(error._body)
+                        console.log(playlistMessage);
+
                     }
                 }
             );
@@ -103,11 +106,25 @@ export class PlaylistDetailComponent implements OnInit {
         document.getElementById('mp3-source').setAttribute('src', file_path);
         (document.getElementById('reproductor') as any).load();
         (document.getElementById('reproductor') as any).play();
+        (document.getElementById('reproductor') as any).onended = () => { this.nextSong(this.song) };
         document.getElementById('playing-song-title').innerHTML = song.name;
         document.getElementById('playing-song-artist').innerHTML = song.album.artist.name;
         if (song.album.image != 'null')
             document.getElementById('playing-song-image').setAttribute('src', image_path);
 
+    }
+
+
+
+
+    public nextSong(actual) {
+        let nextIndex = this.songs.findIndex((song) => { return song == actual }) + 1;
+        if (nextIndex > this.songs.length - 1) {
+            nextIndex = 0;
+        }
+        this.song = this.songs[nextIndex];
+
+        this.startPlayer(this.song);
     }
 
 }

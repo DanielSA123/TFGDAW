@@ -9,10 +9,6 @@
 
         </form>
     </div>
-    <ul class="pagination justify-content-end">
-        <li class="page-item"><a class="page-link" [routerLink]="['/songs',prev_page]">Anterior</a></li>
-        <li class="page-item"><a class="page-link" [routerLink]="['/songs',next_page]">Siguiente</a></li>
-    </ul>
     <div class="gallery-songs row" *ngIf="songs">
         <p *ngIf="songMessage">{{songMessage}}</p>
         <div *ngFor="let song of songs" class="col-lg-12 bg-dark text-light song-item">

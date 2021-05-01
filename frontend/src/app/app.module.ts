@@ -29,6 +29,8 @@ import { PlaylistEditComponent } from './components/playlist-edi.component';
 import { PlaylistDetailComponent } from './components/playlist-detail.component';
 import { PlaylistListComponent } from './components/playlist-list.component';
 
+import { SearchListComponent } from './components/search-list.component';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { PlaylistListComponent } from './components/playlist-list.component';
     SongAddComponent,
     SongEditComponent,
     SongListComponent,
+    SearchListComponent,
     PlayerComponent,
     PlaylistAddComponent,
     PlaylistEditComponent,

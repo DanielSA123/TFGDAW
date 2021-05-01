@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptions, } from "@angular/http";
 import { GLOBAL } from "./GLOBAL";
 import { Playlist } from "app/models/playlist";
+import { Song } from "app/models/song";
 
 @Injectable()
 export class PlaylistService {
@@ -48,14 +49,15 @@ export class PlaylistService {
     }
 
 
-    public addSong(token, id, song) {
+    public addSong(token, id, song: Song) {
         let params = JSON.stringify(song);
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });
         return this._http.put(this.url + 'playlists/add-song/' + id, params, { headers: headers });
     }
 
-    public removeSong(token, id, song) {
+    public removeSong(token, id, song: Song) {
         let params = JSON.stringify(song);
+
         let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': token });
         return this._http.put(this.url + 'playlists/remove-song/' + id, params, { headers: headers });
     }

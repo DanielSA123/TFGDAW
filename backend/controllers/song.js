@@ -84,6 +84,21 @@ function getSongs(req, res) {
 
 }
 
+function searchSong(req, res) {
+    var songName = req.params.name;
+    Song.find({ name: { "$regex": songName, "$options": 'i' } }).sort('name').populate({ path: 'album', populate: { path: 'artist' } }).exec((err, songs) => {
+        if (err) {
+            res.status(500).send({ messsage: 'Error en la peticion' });
+        } else {
+            if (!songs) {
+                res.status(404).send({ messsage: 'No hay canciones con el nombre ' + songName });
+            } else {
+                return res.status(200).send({ songs });
+            }
+        }
+    });
+}
+
 /**
  * Función para guardar una canción en la base de datos
  * 
@@ -237,4 +252,5 @@ module.exports = {
     deleteSong,
     uploadFile,
     getSongFile,
+    searchSong,
 }

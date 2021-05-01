@@ -14,7 +14,7 @@ const path = require('path');
  */
 function getPlaylist(req, res) {
     var playlistId = req.params.id;
-    Playlist.findById(playlistId).populate({ path: 'songs' }).exec((err, playlist) => {
+    Playlist.findById(playlistId).populate({ path: 'songs', populate: { path: 'album', populate: { path: 'artist' } } }).exec((err, playlist) => {
         if (err) {
             res.status(500).send({ messsage: 'Error en la peticion' });
         } else {
@@ -134,7 +134,7 @@ function deletePlaylist(req, res) {
  */
 function appendSong(req, res) {
     var playlistId = req.params.id
-    var song = req.body.song;
+    var song = req.body._id;
     Playlist.findByIdAndUpdate(playlistId, { $addToSet: { songs: song } }, (err, playlistUpdated) => {
         if (err) {
             res.status(500).send({ message: "Error en la peticion" });
@@ -155,8 +155,8 @@ function appendSong(req, res) {
  * @param {*} res 
  */
 function removeSong(req, res) {
-    var playlistId = req.params.id
-    var song = req.body.song;
+    var playlistId = req.params.id;
+    var song = req.body._id;
     Playlist.findByIdAndUpdate(playlistId, { $pull: { songs: song } }, (err, playlistUpdated) => {
         if (err) {
             res.status(500).send({ message: "Error en la peticion" });

@@ -5,15 +5,14 @@ import { GLOBAL } from '../services/GLOBAL';
 import { SongService } from 'app/services/song.service';
 import { Song } from 'app/models/song';
 import { PlaylistService } from 'app/services/playlist.service';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
-    selector: 'song-list',
+    selector: 'search-list',
     templateUrl: '../views/song-list.html',
     providers: [UserService, SongService, PlaylistService],
 })
 
-export class SongListComponent implements OnInit {
+export class SearchListComponent implements OnInit {
     public titulo: string;
     public songs: any[];
     public identity: any;
@@ -22,8 +21,6 @@ export class SongListComponent implements OnInit {
     public songMessage: string;
     public song: any;
     public listas: any[];
-    public prev_page;
-    public next_page;
     public searchName: string;
 
     constructor(private _route: ActivatedRoute, private _router: Router,
@@ -39,23 +36,14 @@ export class SongListComponent implements OnInit {
 
 
     ngOnInit() {
-
         this.getSongs();
         this.getListas();
     }
 
     getSongs() {
         this._route.params.forEach(param => {
-            let page = +param['page'];
-            if (!page) {
-                page = 1;
-            }
-            this.next_page = page + 1;
-            this.prev_page = page - 1;
-            if (this.prev_page == 0) {
-                this.prev_page = 1;
-            }
-            this._songService.getSongsPag(this.token, page).subscribe(
+            this.searchName = param['name'];
+            this._songService.searchSong(this.token, this.searchName).subscribe(
                 response => {
                     let res = response.json();
                     if (!res.songs) {
@@ -124,7 +112,6 @@ export class SongListComponent implements OnInit {
 
     public startPlayer(song) {
         let song_player = JSON.stringify(song);
-
 
         let file_path = this.url + 'songs/get-song/' + song.file;
         let image_path = this.url + 'albums/get-image/' + song.album.image;

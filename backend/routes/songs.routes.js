@@ -16,4 +16,6 @@ router.delete('/song/:id', md_auth.ensureAuth, SongController.deleteSong); //bor
 router.post('/upload-file/:id', [md_auth.ensureAuth, md_upload], SongController.uploadFile); //subir audio de cancion
 router.get('/get-song/:songFile', SongController.getSongFile); //ver audio de cancion
 
+router.get('/search/:name', md_auth.ensureAuth, SongController.searchSong); //ñbuscar una cancion por nombre
+
 module.exports = router;
