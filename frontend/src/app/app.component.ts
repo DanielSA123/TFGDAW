@@ -85,9 +85,11 @@ export class AppComponent implements OnInit {
   public logout() {
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
+    localStorage.removeItem('actual_song');
     localStorage.clear();
     this.identity = null;
     this.token = null;
+    (document.getElementById('reproductor') as any).pause();
     this._router.navigate(['/']);
   }
 

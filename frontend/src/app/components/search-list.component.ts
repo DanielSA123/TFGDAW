@@ -8,7 +8,7 @@ import { PlaylistService } from 'app/services/playlist.service';
 
 @Component({
     selector: 'search-list',
-    templateUrl: '../views/song-list.html',
+    templateUrl: '../views/search-list.html',
     providers: [UserService, SongService, PlaylistService],
 })
 

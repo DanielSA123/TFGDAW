@@ -38,7 +38,7 @@
 </div>
 
 
-<div class="container" *ngIf="!identity || identity.artistId != 'null'">
+<div class="container" *ngIf="(!identity || identity.artistId != 'null') && identity.role != 'ROLE_ADMIN'">
     <h1>Error</h1>
     <p>No tienes los permisos necesarios</p>
 </div>

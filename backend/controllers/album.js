@@ -146,36 +146,39 @@ function updateAlbum(req, res) {
  */
 function deleteAlbum(req, res) {
     var albumId = req.params.id;
-    Album.findByIdAndRemove(albumId, (err, albumRemoved) => {
+    Album.findById(albumId, (err, albumToRemove) => {
         if (err) {
             res.status(500).send({ messsage: 'Error en la peticion' });
         } else {
-            if (!albumRemoved) {
+            if (!albumToRemove) {
                 res.status(404).send({ messsage: 'No se ha eliminado el album' });
             } else {
-                Song.find({ album: albumRemoved._id })
-                    .remove((err, songRemoved) => {
-                        if (err) {
-                            res.status(500).send({ messsage: 'Error en la peticion' });
+                Song.find({ album: albumToRemove._id }, (err, songsToRemove) => {
+                    if (err) {
+                        res.status(500).send({ messsage: 'Error en la peticion' });
+                    } else {
+                        if (!songsToRemove) {
+                            res.status(404).send({ messsage: 'No se ha eliminado la cancion' });
                         } else {
-                            if (!songRemoved) {
-                                res.status(404).send({ messsage: 'No se ha eliminado la cancion' });
-                            } else {
-                                console.log(songRemoved);
-                                if (albumRemoved.image && albumRemoved.image != 'null') {
-                                    fs.rm('./uploads/albums/' + albumRemoved.image, (err) => {
+                            songsToRemove.forEach(songToRemove => {
+                                if (songToRemove.file && songToRemove.file != 'null') {
+                                    fs.rm('./uploads/songs/' + songToRemove.file, (err) => {
                                         console.log(err);
                                     });
                                 }
-                                if (songRemoved.file && songRemoved.file != 'null') {
-                                    fs.rm('./uploads/songs/' + songRemoved.file, (err) => {
-                                        console.log(err);
-                                    });
-                                }
-                                res.status(200).send({ album: albumRemoved });
+                                songToRemove.remove();
+                            });
+                            if (albumToRemove.image && albumToRemove.image != 'null') {
+                                fs.rm('./uploads/albums/' + albumToRemove.image, (err) => {
+                                    console.log(err);
+                                });
                             }
+                            albumToRemove.remove();
+
+                            res.status(200).send({ album: albumToRemove });
                         }
-                    });
+                    }
+                });
             }
         }
     });

@@ -20,7 +20,7 @@ import { SongListComponent } from './components/song-list.component';
 
 import { PlaylistDetailComponent } from './components/playlist-detail.component';
 import { PlaylistAddComponent } from './components/playlist-add.component';
-import { PlaylistEditComponent } from './components/playlist-edi.component';
+import { PlaylistEditComponent } from './components/playlist-edit.component';
 import { PlaylistListComponent } from './components/playlist-list.component';
 import { SearchListComponent } from './components/search-list.component';
 

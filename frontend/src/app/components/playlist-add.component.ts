@@ -37,7 +37,7 @@ export class PlaylistAddComponent implements OnInit {
         this.lista.user = this.identity._id;
         this._playlistService.addPlaylist(this.token, this.lista).subscribe(
             response => {
-                if (!response.json().artist) {
+                if (!response.json().playlist) {
                     this.playlistMessage = "No se ha creado la lista";
                 } else {
                     this.lista = response.json().playlist;

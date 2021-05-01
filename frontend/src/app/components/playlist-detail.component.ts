@@ -86,8 +86,6 @@ export class PlaylistDetailComponent implements OnInit {
                     var playlistMessage = <any>error;
                     if (playlistMessage != null) {
                         var body = JSON.parse(error._body)
-                        console.log(playlistMessage);
-
                     }
                 }
             );

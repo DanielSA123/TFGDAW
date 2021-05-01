@@ -1,12 +1,11 @@
 <div class="container">
     <h1>{{titulo}}</h1>
     <div>
-        <form #searchForm="ngForm">
-            <div class="form-group col-3">
-                <input type="text" class="form-control" id="inputName" required #name="ngModel" name="searchName" [(ngModel)]="searchName">
+        <form #searchForm="ngForm" (submit)="onSubmit()">
+            <div class="form-group row">
+                <input type="text" class="form-control col-10 col-md-3" id="inputName" required #name="ngModel" name="searchName" [(ngModel)]="searchName">
+                <a (click)="onSubmit()" class="col-1 align-bottom text-light"><i class="fas fa-search align-bottom"></i></a>
             </div>
-            <a (click)="onSubmit()"><i class="fas fa-search"></i></a>
-
         </form>
     </div>
     <ul class="pagination justify-content-end">

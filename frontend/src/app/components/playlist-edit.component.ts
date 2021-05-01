@@ -68,8 +68,8 @@ export class PlaylistEditComponent implements OnInit {
             this._playlistService.editPlaylist(this.token, param['id'], this.lista).subscribe(
                 response => {
                     let res = response.json();
-                    if (!response.json().artist) {
-                        this.playlistMessage = "No se ha editado la lista";
+                    if (!response.json().playlist) {
+                        this.playlistMessage = "prueba";
                     } else {
 
                         if (this.filesToUpload) {

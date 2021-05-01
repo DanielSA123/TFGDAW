@@ -5,7 +5,7 @@
             {{songMessage}}
         </div>
     </div>
-    <form #formSong="ngForm" (ngSubmit)="onSubmit()">
+    <form #formSong="ngForm" (ngSubmit)="onSubmit()" *ngIf="identity">
         <div class="form-group">
             <label for="inputNumber">Numero de cancion</label>
             <input type="text" class="form-control" id="inputNumber" required #number="ngModel" name="number" [(ngModel)]="song.number">
@@ -48,7 +48,7 @@
 
 
 
-    <div class="container" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+    <div class="container" *ngIf="!identity">
         <h1>Error</h1>
         <p>No tienes los permisos necesarios</p>
     </div>

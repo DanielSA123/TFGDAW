@@ -29,8 +29,6 @@ export class AlbumAddComponent implements OnInit {
     ngOnInit() {
         this._route.params.forEach(param => {
             this.album.artist = param['artist'];
-            console.log(this.album);
-
         })
     }
 
