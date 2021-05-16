@@ -7,7 +7,6 @@ var md_upload = multipart({ uploadDir: 'uploads/albums' }); //ruta donde se guar
 
 
 router.get('/:artist?', md_auth.ensureAuth, AlbumController.getAlbums); //ver todos los albums/ ver los albums de un artista
-
 router.post('/', md_auth.ensureAuth, AlbumController.saveAlbum); //crear album
 router.get('/album/:id', md_auth.ensureAuth, AlbumController.getAlbum); //ver album
 router.put('/album/:id', md_auth.ensureAuth, AlbumController.updateAlbum); //editar album
