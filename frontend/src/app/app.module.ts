@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { appRoutingProviders, routing } from './app.routing';
 
-
-
 import { AppComponent } from './app.component';
 import { UserEditComponent } from './components/user-edit.component';
 import { HomeComponent } from './components/home.component';

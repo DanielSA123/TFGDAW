@@ -28,7 +28,24 @@
             <label for="inputYear">Año</label>
             <input type="text" class="form-control" id="inputYear" required #year="ngModel" name="year" [(ngModel)]="album.year">
             <div *ngIf="year.invalid && (year.dirty || year.touched)">
-                <span>El titulo es obligatorio</span>
+                <span>El año es obligatorio</span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="inputLicense">Licencia</label>
+            <select type="text" class="custom-select " id="inputLicense" required #license="ngModel" name="license" [(ngModel)]="album.license">
+                <option value="Dominio publico">Dominio publico</option>
+                <option value="Reconocimiento(by)">Reconocimiento(by)</option>
+                <option value="Reconocimiento - NoComercial(by-nc)">Reconocimiento - NoComercial(by-nc)</option>
+                <option value="Reconocimiento - NoComercial - CompartirIgual(by-nc-sa)">Reconocimiento - NoComercial - CompartirIgual(by-nc-sa)</option>
+                <option value="Reconocimiento - NoComercial - SinObraDerivada(by-nc-nd)">Reconocimiento - NoComercial - SinObraDerivada(by-nc-nd)</option>
+                <option value="Reconocimiento - CompartirIgual(by-sa)">Reconocimiento - CompartirIgual(by-sa)</option>
+                <option value="Reconocimiento - SinObraDerivada(by-nd)">Reconocimiento - SinObraDerivada(by-nd)</option>
+            </select>
+            <div *ngIf="license.invalid && (license.dirty || license.touched)">
+                <span>La licencia es obligatoria</span>
             </div>
 
         </div>

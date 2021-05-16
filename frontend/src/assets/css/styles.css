@@ -101,6 +101,11 @@ input {
     width: 200px;
 }
 
+i.fab {
+    font-size: 25px;
+    margin-top: 10px;
+}
+
 .album-card,
 .playlist-card {
     margin-top: 1rem;

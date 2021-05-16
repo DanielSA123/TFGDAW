@@ -39,7 +39,7 @@ export class AlbumAddComponent implements OnInit {
         this.titulo = 'Añadir album';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.album = new Album('', '', 2000, '', '');
+        this.album = new Album('', '', 2000, '', '','');
 
     }
 

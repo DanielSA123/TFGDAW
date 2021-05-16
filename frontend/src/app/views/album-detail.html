@@ -8,6 +8,14 @@
             <p>{{album.description}}</p>
             <p>{{album.year}}</p>
             <a [routerLink]="['/artista',album.artist._id]">{{album.artist.name}}</a>
+            <p>
+                <i *ngIf="album.license.includes('Dominio publico')" class="fab fa-creative-commons-pd"></i>
+                <i *ngIf="!album.license.includes('Dominio publico')" class="fab fa-creative-commons"></i>
+                <i *ngIf="album.license.includes('by')" class="fab fa-creative-commons-by"></i>
+                <i *ngIf="album.license.includes('nc')" class="fab fa-creative-commons-nc"></i>
+                <i *ngIf="album.license.includes('nd')" class="fab fa-creative-commons-nd"></i>
+                <i *ngIf="album.license.includes('sa')" class="fab fa-creative-commons-sa"></i>
+            </p>
         </div>
         <div class="clearfix"></div>
         <a [routerLink]="['/crear-cancion',album._id]" *ngIf="identity.role == 'ROLE_ADMIN' || identity.artistId == album.artist._id" class="btn btn-primary"> Añadir cancion</a>

@@ -27,25 +27,25 @@ import { SearchListComponent } from './components/search-list.component';
 
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'artistas/:page', component: ArtistListComponent },
-    { path: 'crear-artista', component: ArtistAddComponent },
-    { path: 'editar-artista/:id', component: ArtistEditComponent },
-    { path: 'artista/:id', component: ArtistDetailComponent },
-    { path: 'crear-album/:artist', component: AlbumAddComponent },
-    { path: 'editar-album/:id', component: AlbumEditComponent },
-    { path: 'album/:id', component: AlbumDetailComponent },
-    { path: 'albums/:page', component: AlbumListComponent },
-    { path: 'crear-cancion/:album', component: SongAddComponent },
-    { path: 'editar-cancion/:id', component: SongEditComponent },
-    { path: 'songs/:page', component: SongListComponent },
-    { path: 'search/:name', component: SearchListComponent },
-    { path: 'lista/:id', component: PlaylistDetailComponent },
-    { path: 'crear-lista', component: PlaylistAddComponent },
-    { path: 'editar-lista/:id', component: PlaylistEditComponent },
-    { path: 'listas', component: PlaylistListComponent },
-    { path: 'mis-datos', component: UserEditComponent },
-    { path: '**', component: HomeComponent },
+    { path: '', component: HomeComponent },                         //Página de inicio
+    { path: 'artistas/:page', component: ArtistListComponent },     //listar artistas
+    { path: 'crear-artista', component: ArtistAddComponent },       //añadir artista
+    { path: 'editar-artista/:id', component: ArtistEditComponent }, //editar artista
+    { path: 'artista/:id', component: ArtistDetailComponent },      //detalles de un artista
+    { path: 'crear-album/:artist', component: AlbumAddComponent },  //añadir album
+    { path: 'editar-album/:id', component: AlbumEditComponent },    //editar album
+    { path: 'album/:id', component: AlbumDetailComponent },         //detalles de un album
+    { path: 'albums/:page', component: AlbumListComponent },        //listar albums
+    { path: 'crear-cancion/:album', component: SongAddComponent },  //añadir canción
+    { path: 'editar-cancion/:id', component: SongEditComponent },   //editar canción
+    { path: 'songs/:page', component: SongListComponent },          //listar canciones
+    { path: 'search/:name', component: SearchListComponent },       //buscar canción
+    { path: 'lista/:id', component: PlaylistDetailComponent },      //detalles de una lista de reproducción
+    { path: 'crear-lista', component: PlaylistAddComponent },       //añadir lista de reproducción
+    { path: 'editar-lista/:id', component: PlaylistEditComponent }, //editar lista de reproducción
+    { path: 'listas', component: PlaylistListComponent },           //listar listas de reproducción
+    { path: 'mis-datos', component: UserEditComponent },            //editar usuario
+    { path: '**', component: HomeComponent },                       //(si la ruta no existe)
 ];
 export const appRoutingProviders: any[] = [];
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

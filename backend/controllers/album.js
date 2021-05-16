@@ -43,6 +43,7 @@ function saveAlbum(req, res) {
     album.year = params.year;
     album.image = 'null';
     album.artist = params.artist;
+    album.license = params.license;
 
     album.save((err, albumStored) => {
         if (err) {
@@ -200,7 +201,6 @@ function uploadImage(req, res) {
 
         var ext_split = file_name.split('.');
         var file_ext = ext_split[1];
-
 
         if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'gif') {
             Album.findByIdAndUpdate(albumId, { image: file_name }, (err, albumUpdated) => {

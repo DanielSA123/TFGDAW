@@ -31,7 +31,7 @@ export class AlbumEditComponent implements OnInit {
         this.titulo = 'Editar album';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.album = new Album('', '', 2000, '', '');
+        this.album = new Album('', '', 2000, '', '','');
         this.url = GLOBAL.url;
         this.is_edit = true;
     }
